@@ -68,6 +68,22 @@ var barcode = function() {
 		elements.ctx = elements.canvas.getContext('2d');
 		elements.canvasg = document.querySelector(config.canvasg);
 		elements.ctxg = elements.canvasg.getContext('2d');
+	
+
+		var log = document.getElementById('log')
+		navigator.mediaDevices.enumerateDevices()
+			.then(function(devices) {
+			devices.forEach(function(device) {
+				log.value = device.kind + ": " + device.label +
+				" id = " + device.deviceId
+				console.log(device.kind + ": " + device.label +
+				" id = " + device.deviceId);
+			});
+			})
+			.catch(function(err) {
+				log.value =err.name + ": " + err.message
+			console.log(err.name + ": " + err.message);
+			});
 
 		if (navigator.getUserMedia) {
 			navigator.getUserMedia({audio: false, video: true}, function(stream) {
